@@ -1,1 +1,1 @@
-# Python_Automation
+# Repository for Python_Automation_Training
