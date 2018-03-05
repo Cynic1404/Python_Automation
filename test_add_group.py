@@ -12,7 +12,7 @@ def is_alert_present(wd):
 
 class test_add_group(unittest.TestCase):
     def setUp(self):
-        self.wd = WebDriver()
+        self.wd = WebDriver(capabilities={"marionette": False})
         self.wd.implicitly_wait(60)
     
     def test_test_add_group(self):
@@ -40,10 +40,6 @@ class test_add_group(unittest.TestCase):
         wd.find_element_by_name("submit").click()
         wd.find_element_by_link_text("group page").click()
         wd.find_element_by_link_text("Logout").click()
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").send_keys("\\undefined")
-        wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").send_keys("\\undefined")
         self.assertTrue(success)
     
     def tearDown(self):
