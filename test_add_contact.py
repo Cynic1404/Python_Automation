@@ -50,6 +50,12 @@ class test_add_contact(unittest.TestCase):
         wd.find_element_by_name("mobile").click()
         wd.find_element_by_name("mobile").clear()
         wd.find_element_by_name("mobile").send_keys(contact.home_telephone)
+        wd.find_element_by_name("email").click()
+        wd.find_element_by_name("email").clear()
+        wd.find_element_by_name("email").send_keys(contact.email)
+        wd.find_element_by_name("homepage").click()
+        wd.find_element_by_name("homepage").clear()
+        wd.find_element_by_name("homepage").send_keys(contact.homepage)
         # submit contact addition
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
@@ -67,7 +73,7 @@ class test_add_contact(unittest.TestCase):
         self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
         self.open_contacts_page(wd)
-        self.add_contact(wd, Contact(first_name="My first", last_name="Contact", nickname="Mr.First", home_telephone="+79261111111"))
+        self.add_contact(wd, Contact(first_name="My first", last_name="Contact", nickname="Mr.First", home_telephone="+79261111111", email="test@gmail.com", homepage="www.pythontraining.com"))
         self.return_contacts_page(wd)
         self.logout(wd)
 
