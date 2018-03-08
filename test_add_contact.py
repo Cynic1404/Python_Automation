@@ -56,7 +56,7 @@ class test_add_contact(unittest.TestCase):
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
         wd.find_element_by_name("homepage").send_keys(contact.homepage)
-        # submit contact addition
+        # confirm adding contact
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
 
@@ -68,7 +68,7 @@ class test_add_contact(unittest.TestCase):
         wd.find_element_by_link_text("Logout").click()
 
 
-    def test_add_group(self):
+    def test_add_contact(self):
         wd = self.wd
         self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
@@ -77,6 +77,14 @@ class test_add_contact(unittest.TestCase):
         self.return_contacts_page(wd)
         self.logout(wd)
 
+    def test_add_empty_contact(self):
+        wd = self.wd
+        self.open_home_page(wd)
+        self.login(wd, "admin", "secret")
+        self.open_contacts_page(wd)
+        self.add_contact(wd, Contact(first_name="", last_name="", nickname="", home_telephone="", email="", homepage=""))
+        self.return_contacts_page(wd)
+        self.logout(wd)
 
     def tearDown(self):
         self.wd.quit()
