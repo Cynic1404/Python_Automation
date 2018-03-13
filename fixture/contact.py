@@ -1,15 +1,18 @@
+from time import sleep
 class ContactHelper:
 
     def __init__(self, app):
         self.app = app
 
-    def open_contacts_page(self):
+    def open_add_contact_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
 
+
+
     def add(self, contact):
         wd = self.app.wd
-        self.open_contacts_page()
+        self.open_add_contact_page()
         # start to create a contact
         wd.find_element_by_name("firstname").click()
         # fill forms
@@ -33,6 +36,13 @@ class ContactHelper:
         # confirm adding contact
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.return_contacts_page()
+
+    def delete_first_contact(self):
+        wd = self.app.wd
+        wd.find_element_by_name("selected[]").click()
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to_alert().accept()
+
 
     def return_contacts_page(self):
         wd = self.app.wd
