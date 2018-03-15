@@ -30,8 +30,12 @@ class ContactHelper:
         wd.find_element_by_name("homepage").clear()
         wd.find_element_by_name("homepage").send_keys(contact.homepage)
 
+    def select_first_contact(self):
+        wd = self.app.wd
+        wd.find_element_by_name("selected[]").click()
 
-    def add(self, contact):
+
+    def add_new_contact(self, contact):
         wd = self.app.wd
         self.open_conacts_page()
         self.open_new_contact_page()
@@ -55,7 +59,7 @@ class ContactHelper:
     def delete_first_contact(self):
         wd = self.app.wd
         self.open_conacts_page()
-        wd.find_element_by_name("selected[]").click()
+        self.select_first_contact()
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
         self.open_conacts_page()
