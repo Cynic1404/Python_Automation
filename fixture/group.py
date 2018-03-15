@@ -38,7 +38,7 @@ class GroupHelper:
         wd = self.app.wd
         self.open_groups_page()
         # start to edit first group
-        wd.find_element_by_name("selected[]").click()
+        self.select_first_group()
         wd.find_element_by_name("edit").click()
         # fill forms
         self.fill_forms(group)
