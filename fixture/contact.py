@@ -18,7 +18,7 @@ class ContactHelper:
         wd.find_element_by_link_text("home page").click()
 
 
-    def fill_forms(self, contact):
+    def fill_contact_form(self, contact):
         wd = self.app.wd
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(contact.first_name)
@@ -49,17 +49,17 @@ class ContactHelper:
         self.open_conacts_page()
         self.open_new_contact_page()
         # start to create a contact
-        self.fill_forms(contact)
+        self.fill_contact_form(contact)
         # confirm adding contact
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.return_home_page()
 
 
-    def edit_first_contact(self, contact):
+    def modify_first_contact(self, contact):
         wd = self.app.wd
         self.open_conacts_page()
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
-        self.fill_forms(contact)
+        self.fill_contact_form(contact)
         #confirm edition
         wd.find_element_by_name("update").click()
         self.return_home_page()
