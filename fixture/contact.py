@@ -18,25 +18,22 @@ class ContactHelper:
         wd.find_element_by_link_text("home page").click()
 
 
+    def change_field_value(self, field_name, text):
+        wd = self.app.wd
+        if text is not None:
+            wd.find_element_by_name(field_name).click()
+            wd.find_element_by_name(field_name).clear()
+            wd.find_element_by_name(field_name).send_keys(text)
+
+
     def fill_contact_form(self, contact):
         wd = self.app.wd
-        wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(contact.first_name)
-        wd.find_element_by_name("lastname").click()
-        wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys(contact.last_name)
-        wd.find_element_by_name("nickname").click()
-        wd.find_element_by_name("nickname").clear()
-        wd.find_element_by_name("nickname").send_keys(contact.nickname)
-        wd.find_element_by_name("mobile").click()
-        wd.find_element_by_name("mobile").clear()
-        wd.find_element_by_name("mobile").send_keys(contact.home_telephone)
-        wd.find_element_by_name("email").click()
-        wd.find_element_by_name("email").clear()
-        wd.find_element_by_name("email").send_keys(contact.email)
-        wd.find_element_by_name("homepage").click()
-        wd.find_element_by_name("homepage").clear()
-        wd.find_element_by_name("homepage").send_keys(contact.homepage)
+        self.change_field_value("firstname", contact.first_name)
+        self.change_field_value("lastname", contact.last_name)
+        self.change_field_value("nickname", contact.nickname)
+        self.change_field_value("home", contact.home_telephone)
+        self.change_field_value("email", contact.email)
+        self.change_field_value("homepage", contact.homepage)
 
 
     def select_first_contact(self):
@@ -72,4 +69,9 @@ class ContactHelper:
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
         self.open_conacts_page()
+
+    def count(self):
+        wd = self.app.wd
+        self.open_conacts_page()
+        return len(wd.find_elements_by_name("selected[]"))
 

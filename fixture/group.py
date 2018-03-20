@@ -17,8 +17,6 @@ class GroupHelper:
             wd.find_element_by_name(field_name).send_keys(text)
 
 
-
-
     def fill_group_form(self, group):
         wd = self.app.wd
         self.change_field_value("group_name", group.group_name)
@@ -67,3 +65,9 @@ class GroupHelper:
         self.select_first_group()
         wd.find_element_by_name("delete").click()
         self.return_groups_page()
+
+
+    def count(self):
+        wd = self.app.wd
+        self.open_groups_page()
+        return len(wd.find_elements_by_name("selected[]"))
