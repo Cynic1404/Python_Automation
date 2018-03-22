@@ -5,11 +5,17 @@ class ContactHelper:
 
     def open_conacts_page(self):
         wd = self.app.wd
+        if wd.current_url.endswith("/addressbook/") and len(
+                wd.find_elements_by_xpath("//form[@id='LoginForm']/input[3]")) > 0 and len(
+                wd.find_elements_by_xpath("//table[@id='maintable']//a[.='All e-mail']")) > 0:
+            return
         wd.find_element_by_link_text("home").click()
 
 
     def open_new_contact_page(self):
         wd = self.app.wd
+        if wd.current_url.endswith("/edit.php") and len(wd.find_elements_by_name("submit")) > 1:
+            return
         wd.find_element_by_link_text("add new").click()
 
 
@@ -43,7 +49,6 @@ class ContactHelper:
 
     def add_new_contact(self, contact):
         wd = self.app.wd
-        self.open_conacts_page()
         self.open_new_contact_page()
         # start to create a contact
         self.fill_contact_form(contact)
