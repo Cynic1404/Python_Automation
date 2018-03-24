@@ -3,7 +3,7 @@ class ContactHelper:
         self.app = app
 
 
-    def open_conacts_page(self):
+    def open_home_page(self):
         wd = self.app.wd
         if wd.current_url.endswith("/addressbook/") and len(
                 wd.find_elements_by_xpath("//form[@id='LoginForm']/input[3]")) > 0 and len(
@@ -59,7 +59,7 @@ class ContactHelper:
 
     def modify_first_contact(self, contact):
         wd = self.app.wd
-        self.open_conacts_page()
+        self.open_home_page()
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
         self.fill_contact_form(contact)
         #confirm edition
@@ -69,14 +69,14 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
-        self.open_conacts_page()
+        self.open_home_page()
         self.select_first_contact()
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
-        self.open_conacts_page()
+        self.open_home_page()
 
     def count(self):
         wd = self.app.wd
-        self.open_conacts_page()
+        self.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
