@@ -9,7 +9,7 @@ def test_edit_first_contact(app):
 """
 
 def test_edit_first_contact_name(app):
-    contact = Contact(first_name="Mihailo")
+    contact = Contact(first_name="Mikhail")
     if app.contact.count() == 0:
         app.contact.add_new_contact(Contact(first_name="new contact"))
     old_contacts = app.contact.get_contacts_list()
