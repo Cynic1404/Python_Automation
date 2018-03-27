@@ -11,8 +11,7 @@ def test_edit_first_contact(app):
 def test_edit_first_contact_name(app):
     contact = Contact(first_name="Mihailo")
     if app.contact.count() == 0:
-        app.contact.add_new_contact(contact)
-    app.contact.modify_first_contact(contact)
+        app.contact.add_new_contact(Contact(first_name="new contact"))
     old_contacts = app.contact.get_contacts_list()
     contact.id = old_contacts[0].id
     app.contact.modify_first_contact(contact)
