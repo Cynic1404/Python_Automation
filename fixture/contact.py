@@ -94,10 +94,8 @@ class ContactHelper:
             print(id,first_name,last_name)
         return contacts
 
-        """
-        for element in wd.find_elements_by_css_selector("span.group"):
-            text = element.text
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            groups.append(Group(group_name=text, id=id))
-        return groups
-        """
+    def get_first_contact_last_name(self):
+        wd = self.app.wd
+        self.open_home_page()
+        last_name = wd.find_elements_by_name("entry")[0].find_elements_by_tag_name("td")[1].text
+        return last_name
