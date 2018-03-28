@@ -77,10 +77,12 @@ class ContactHelper:
         wd.switch_to_alert().accept()
         self.open_home_page()
 
+
     def count(self):
         wd = self.app.wd
         self.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
+
 
     def get_contacts_list(self):
         wd = self.app.wd
@@ -93,6 +95,7 @@ class ContactHelper:
             contacts.append(Contact(first_name=first_name, last_name=last_name, id=id))
             print(id,first_name,last_name)
         return contacts
+
 
     def get_first_contact_last_name(self):
         wd = self.app.wd

@@ -87,6 +87,7 @@ class GroupHelper:
             groups.append(Group(group_name=text, id=id))
         return groups
 
+
     def get_first_group_name(self):
         wd = self.app.wd
         self.open_groups_page()
