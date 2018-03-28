@@ -8,7 +8,7 @@ def test_edit_first_contact(app):
     old_cotacts = app.contact.get_contacts_list()
     app.contact.modify_first_contact(Contact(first_name="craetwsdasfasfhsahflas first name", last_name="changed last name", nickname="changed nickname", home_telephone="changed +79261111111", email="changed test@gmail.com", homepage="changed www.pythontraining.com"))
     new_contacts = app.contact.get_contacts_list()
-    assert len(old_cotacts) == len(new_contacts)
+    assert len(old_cotacts) == app.contact.count()
 
 
 def test_edit_first_contact_name(app):
@@ -19,7 +19,7 @@ def test_edit_first_contact_name(app):
     contact.id = old_contacts[0].id
     app.contact.modify_first_contact(contact)
     new_contacts = app.contact.get_contacts_list()
-    assert len(old_contacts) == len(new_contacts)
+    assert len(old_contacts) == app.contact.count()
     old_contacts[0] = contact
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
@@ -33,7 +33,7 @@ def test_edit_first_contact_phone(app):
     contact.id = old_contacts[0].id
     app.contact.modify_first_contact(contact)
     new_contacts = app.contact.get_contacts_list()
-    assert len(old_contacts) == len(new_contacts)
+    assert len(old_contacts) == app.contact.count()
     old_contacts[0] = contact
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key = Contact.id_or_max)
 
