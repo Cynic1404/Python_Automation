@@ -78,12 +78,7 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
-        self.open_home_page()
-        self.select_first_contact()
-        wd.find_element_by_xpath("//input[@value='Delete']").click()
-        wd.switch_to_alert().accept()
-        self.open_home_page()
-        self.contacts_cache = None
+        self.delete_contact_by_index(0)
 
 
     def delete_contact_by_index(self, index):
