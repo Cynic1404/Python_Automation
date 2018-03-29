@@ -24,17 +24,16 @@ def test_edit_first_contact_name(app):
     old_contacts[0] = contact
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
+"""
 
-def test_edit_first_contact_phone(app):
+def test_edit_some_contact_phone(app):
     if app.contact.count() == 0:
         app.contact.add_new_contact(Contact(last_name="test last name"))
     old_contacts = app.contact.get_contacts_list()
+    index = randrange(len(old_contacts)) + 2
     last_name = app.contact.get_first_contact_last_name()
     contact = Contact(home_telephone="428348273478231748231742731847231749", last_name = last_name)
-    contact.id = old_contacts[0].id
-    app.contact.modify_first_contact(contact)
+    app.contact.modify_contact_by_index(index, contact)
     new_contacts = app.contact.get_contacts_list()
     assert len(old_contacts) == app.contact.count()
-    old_contacts[0] = contact
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key = Contact.id_or_max)
-"""
