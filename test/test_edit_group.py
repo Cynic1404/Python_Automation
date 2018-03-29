@@ -13,7 +13,7 @@ def test_edit_some_group(app):
     assert len(old_groups) == app.group.count()
 
 
-def test_modify_group_name(app):
+def test_modify_some_group_name(app):
     if app.group.count() == 0:
         app.group.create(Group(group_name="new group"))
     old_groups = app.group.get_group_list()
@@ -27,7 +27,7 @@ def test_modify_group_name(app):
     assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
 
 
-def test_modify_group_header(app):
+def test_modify_some_group_header(app):
     if app.group.count() == 0:
         app.group.create(Group(group_name="test"))
     old_groups = app.group.get_group_list()
