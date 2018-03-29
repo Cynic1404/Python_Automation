@@ -3,14 +3,6 @@ from model.group import Group
 from random import randrange
 
 
-def test_edit_first_group(app):
-    if app.group.count() == 0:
-        app.group.create(Group(group_name="test"))
-    old_groups = app.group.get_group_list()
-    app.group.modify_first_group(Group(group_name="Edited first group", header="Header edited", footer="Footer edited"))
-    assert len(old_groups) == app.group.count()
-
-
 def test_edit_some_group(app):
     if app.group.count() == 0:
         app.group.create(Group(group_name="test"))
