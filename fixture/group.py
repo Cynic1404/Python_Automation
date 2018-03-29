@@ -70,7 +70,6 @@ class GroupHelper:
         self.modify_group_by_index(0, new_group_data)
 
 
-
     def select_group_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
@@ -92,6 +91,7 @@ class GroupHelper:
         wd.find_element_by_name("delete").click()
         self.return_groups_page()
         self.group_cache = None
+
 
     def count(self):
         wd = self.app.wd
