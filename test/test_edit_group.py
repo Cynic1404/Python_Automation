@@ -3,14 +3,7 @@ from model.group import Group
 from random import randrange
 
 
-def test_edit_some_group(app):
-    if app.group.count() == 0:
-        app.group.create(Group(group_name="test"))
-    old_groups = app.group.get_group_list()
-    index = randrange(len(old_groups))
-    group = Group(group_name="Edited some group", header="Header edited", footer="Footer edited")
-    app.group.modify_group_by_index(index, group)
-    assert len(old_groups) == app.group.count()
+
 
 
 def test_modify_first_group_name(app):
@@ -24,6 +17,16 @@ def test_modify_first_group_name(app):
     assert len(old_groups) == app.group.count()
     old_groups[0] = group
     assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
+
+"""
+def test_edit_some_group(app):
+    if app.group.count() == 0:
+        app.group.create(Group(group_name="test"))
+    old_groups = app.group.get_group_list()
+    index = randrange(len(old_groups))
+    group = Group(group_name="Edited some group", header="Header edited", footer="Footer edited")
+    app.group.modify_group_by_index(index, group)
+    assert len(old_groups) == app.group.count()
 
 
 def test_modify_some_group_name(app):
@@ -51,3 +54,4 @@ def test_modify_some_group_header(app):
     app.group.modify_group_by_index(index, group)
     assert len(old_groups) == app.group.count()
 
+"""
