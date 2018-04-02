@@ -1,4 +1,5 @@
 from model.contact import Contact
+import re
 
 class ContactHelper:
     def __init__(self, app):
@@ -121,12 +122,14 @@ class ContactHelper:
             wd = self.app.wd
             self.open_home_page()
             self.contacts_cache = []
-            for element in wd.find_elements_by_name("entry"):
-                id = element.find_element_by_name("selected[]").get_attribute("value")
-                first_name = element.find_elements_by_tag_name("td")[2].text
-                last_name = element.find_elements_by_tag_name("td")[1].text
-                self.contacts_cache.append(Contact(first_name=first_name, last_name=last_name, id=id))
-                print(id,first_name,last_name)
+            for row in wd.find_elements_by_name("entry"):
+                cells = row.find_elements_by_tag_name("td")
+                id = cells[0].find_element_by_tag_name("input").get_attribute("value")
+                first_name = cells[2].text
+                last_name = cells[1].text
+                all_phones = cells[5].text.splitlines()
+                self.contacts_cache.append(Contact(first_name=first_name, last_name=last_name, id=id, homephone=all_phones[0],
+                                                   mobilephone=all_phones[1], workphone=all_phones[2], secondaryphone=all_phones[3]))
         return list(self.contacts_cache)
 
 
@@ -147,6 +150,16 @@ class ContactHelper:
         workphone = wd.find_element_by_name("work").get_attribute("value")
         mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
         secondaryphone = wd.find_element_by_name("phone2").get_attribute("value")
-        return Contact(first_name=firstname, last_name=lastname, id = id, homepage=homephone, workphone=workphone,mobilephone=mobilephone, secondaryphone=secondaryphone)
+        homepage = wd.find_element_by_name("homepage").get_attribute("value")
+        return Contact(first_name=firstname, last_name=lastname, id = id, homepage=homepage, homephone=homephone, workphone=workphone,mobilephone=mobilephone, secondaryphone=secondaryphone)
 
 
+    def get_contact_from_view_page(self, index):
+        wd = self.app.wd
+        self.open_contact_to_view_by_index(index)
+        text = wd.find_element_by_id("content").text
+        homephone = re.search("H: (.*)", text).group(1)
+        workphone = re.search("W: (.*)", text).group(1)
+        mobilephone = re.search("M: (.*)", text).group(1)
+        secondaryphone = re.search("P: (.*)", text).group(1)
+        return Contact(homephone=homephone, workphone=workphone, mobilephone=mobilephone, secondaryphone=secondaryphone)
