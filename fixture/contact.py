@@ -39,9 +39,14 @@ class ContactHelper:
         self.change_field_value("firstname", contact.first_name)
         self.change_field_value("lastname", contact.last_name)
         self.change_field_value("nickname", contact.nickname)
-        self.change_field_value("home", contact.home_telephone)
+        self.change_field_value("home", contact.homephone)
         self.change_field_value("email", contact.email)
         self.change_field_value("homepage", contact.homepage)
+        self.change_field_value("home", contact.homephone)
+        self.change_field_value("work", contact.workphone)
+        self.change_field_value("mobile", contact.mobilephone)
+        self.change_field_value("phone2", contact.secondaryphone)
+
 
 
     def select_first_contact(self):
@@ -72,14 +77,21 @@ class ContactHelper:
 
     def modify_contact_by_index(self, index, contact):
         wd = self.app.wd
-        self.open_home_page()
-        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr["+str(index+2)+"]/td[8]/a/img").click()
+        self.open_contact_to_edit_by_index(index)
         self.fill_contact_form(contact)
-        #confirm edition
         wd.find_element_by_name("update").click()
         self.return_home_page()
         self.contacts_cache = None
 
+    def open_contact_to_edit_by_index(self, index):
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + str(index + 2) + "]/td[8]/a/img").click()
+
+    def open_contact_to_view_by_index(self, index):
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + str(index + 2) + "]/td[7]/a/img").click()
 
     def delete_first_contact(self):
         wd = self.app.wd
@@ -123,3 +135,18 @@ class ContactHelper:
         self.open_home_page()
         last_name = wd.find_elements_by_name("entry")[0].find_elements_by_tag_name("td")[1].text
         return last_name
+
+
+    def get_contact_info_from_edit_page(self, index):
+        wd = self.app.wd
+        self.open_contact_to_edit_by_index(index)
+        firstname = wd.find_element_by_name("firstname").get_attribute("value")
+        lastname = wd.find_element_by_name("lastname").get_attribute("value")
+        id = wd.find_element_by_name("id").get_attribute("value")
+        homephone = wd.find_element_by_name("home").get_attribute("value")
+        workphone = wd.find_element_by_name("work").get_attribute("value")
+        mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
+        secondaryphone = wd.find_element_by_name("phone2").get_attribute("value")
+        return Contact(first_name=firstname, last_name=lastname, id = id, homepage=homephone, workphone=workphone,mobilephone=mobilephone, secondaryphone=secondaryphone)
+
+
