@@ -34,7 +34,7 @@ def test_edit_some_contact(app):
         app.contact.add_new_contact(Contact(first_name="test first name", last_name="test last name", homephone="000000000000000000000000000000000000"))
     old_contacts = app.contact.get_contacts_list()
     index = randrange(len(old_contacts))
-    app.contact.modify_contact_by_index(index, Contact(first_name="Some account first name", last_name="changed last name", nickname="changed nickname", homephone="changed +79261111111", email="changed test@gmail.com", homepage="changed www.pythontraining.com", workphone="11111111111111", mobilephone="333333333", secondaryphone="222222222"))
+    app.contact.modify_contact_by_index(index, Contact(first_name="Some account first name", last_name="changed last name", nickname="changed nickname", homephone="+79260000000", email="changed test@gmail.com", homepage="changed www.pythontraining.com", workphone="11111111111111", mobilephone="333333333", secondaryphone="222222222"))
     assert len(old_contacts) == app.contact.count()
 
 def test_edit_some_contact_homephone(app):
