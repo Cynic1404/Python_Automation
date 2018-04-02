@@ -29,6 +29,7 @@ def test_edit_some_contact_name(app):
     old_contacts[index] = contact
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
+"""
 def test_edit_some_contact(app):
     if app.contact.count() == 0:
         app.contact.add_new_contact(Contact(first_name="test first name", last_name="test last name", homephone="000000000000000000000000000000000000"))
@@ -47,4 +48,5 @@ def test_edit_some_contact_homephone(app):
     new_contacts = app.contact.get_contacts_list()
     assert len(old_contacts) == app.contact.count()
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
+"""
 

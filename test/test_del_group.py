@@ -12,7 +12,7 @@ def test_delete_some_group(app):
     old_groups[index:index+1] = []
     assert old_groups == new_groups
 
-
+"""
 def test_first_group(app):
     if app.group.count() == 0:
         app.group.create(Group(group_name="test"))
@@ -22,3 +22,4 @@ def test_first_group(app):
     assert len(old_groups) - 1 == app.group.count()
     old_groups[0:1] = []
     assert old_groups == new_groups
+"""
