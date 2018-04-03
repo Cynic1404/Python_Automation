@@ -29,7 +29,7 @@ def test_edit_some_contact_name(app):
     old_contacts[index] = contact
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
-"""
+
 def test_edit_some_contact(app):
     if app.contact.count() == 0:
         app.contact.add_new_contact(Contact(first_name="test first name", last_name="test last name", homephone="000000000000000000000000000000000000"))
@@ -37,6 +37,7 @@ def test_edit_some_contact(app):
     index = randrange(len(old_contacts))
     app.contact.modify_contact_by_index(index, Contact(first_name="Some account first name", last_name="changed last name", nickname="changed nickname", homephone="+79260000000", email="changed test@gmail.com", homepage="changed www.pythontraining.com", workphone="11111111111111", mobilephone="333333333", secondaryphone="222222222"))
     assert len(old_contacts) == app.contact.count()
+
 
 def test_edit_some_contact_homephone(app):
     if app.contact.count() == 0:
@@ -48,5 +49,5 @@ def test_edit_some_contact_homephone(app):
     new_contacts = app.contact.get_contacts_list()
     assert len(old_contacts) == app.contact.count()
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
-"""
+
 
