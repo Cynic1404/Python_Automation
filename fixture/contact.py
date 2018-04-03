@@ -136,6 +136,12 @@ class ContactHelper:
                 self.contacts_cache.append(Contact(first_name=first_name, last_name=last_name, id=id, address = address, all_phones=all_phones))
         return list(self.contacts_cache)
 
+    def get_lenght_contacts_list(self):
+        wd = self.app.wd
+        self.open_home_page()
+        self.contacts_cache = []
+        lengt = len(wd.find_elements_by_name("entry"))
+        return lengt
 
     def get_first_contact_last_name(self):
         wd = self.app.wd
@@ -155,7 +161,7 @@ class ContactHelper:
         last_name = cells[1].text
         all_phones_from_home_page = cells[5].text
         address = cells[3].text
-        all_emails_from_home_page = cells[4].text.splitlines()
+        all_emails_from_home_page = cells[4].text
         return Contact(id = id, first_name=first_name, last_name=last_name, address=address, all_emails_from_home_page=all_emails_from_home_page, all_phones=all_phones_from_home_page)
 
 
