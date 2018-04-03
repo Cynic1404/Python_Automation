@@ -9,7 +9,7 @@ def test_fields_for_some_contact(app):
     assert contact_hp.address == contact_ep.address
     assert contact_hp.first_name == contact_ep.first_name
     assert contact_hp.last_name == contact_ep.last_name
-    assert contact_hp.all_phones_from_home_page == merge_phones_like_on_home_page(contact_ep)
+    assert contact_hp.all_phones == merge_phones_like_on_home_page(contact_ep)
 
 
 

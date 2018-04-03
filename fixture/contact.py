@@ -133,7 +133,7 @@ class ContactHelper:
                 all_phones = cells[5].text
                 address = cells[3]
                 all_emails = [4]
-                self.contacts_cache.append(Contact(first_name=first_name, last_name=last_name, id=id, address = address, all_phones_from_home_page=all_phones))
+                self.contacts_cache.append(Contact(first_name=first_name, last_name=last_name, id=id, address = address, all_phones=all_phones))
         return list(self.contacts_cache)
 
 
@@ -156,7 +156,7 @@ class ContactHelper:
         all_phones_from_home_page = cells[5].text
         address = cells[3].text
         all_emails_from_home_page = cells[4].text.splitlines()
-        return Contact(id = id, first_name=first_name, last_name=last_name,address=address,all_emails_from_home_page=all_emails_from_home_page, all_phones_from_home_page =all_phones_from_home_page)
+        return Contact(id = id, first_name=first_name, last_name=last_name, address=address, all_emails_from_home_page=all_emails_from_home_page, all_phones=all_phones_from_home_page)
 
 
     def get_contact_info_from_edit_page(self, index):
