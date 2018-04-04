@@ -119,3 +119,15 @@ class GroupHelper:
         self.open_groups_page()
         name = (wd.find_elements_by_css_selector("span.group"))[0].text
         return name
+
+
+
+
+    def delete_all_groups(self):
+        wd = self.app.wd
+        self.open_groups_page()
+        for i in range(len(self.app.wd.find_elements_by_name("selected[]"))):
+            wd.find_elements_by_name("selected[]")[i].click()
+        wd.find_element_by_name("delete").click()
+        self.return_groups_page()
+        self.group_cache = None
