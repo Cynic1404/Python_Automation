@@ -1,19 +1,7 @@
 # -*- coding: utf-8 -*-
 from model.group import Group
 import pytest
-import random
-import string
-
-
-def random_string(prefix, maxlen):
-    symbols = string.ascii_letters+string.digits+" "*10
-    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
-
-
-testdata = [Group(group_name="", header="", footer="")] + [
-    Group(group_name=random_string("name", 10), header = random_string("Header", 20) , footer=random_string("Footer", 20))
-    for i in range(5)
-]
+from data.add_group import constant as testdata
 
 
 
