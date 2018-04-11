@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from model.contact import Contact
-import pytest
 import random
 import string
 from random import randint
