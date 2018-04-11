@@ -5,9 +5,10 @@ from data.contacts import testdata
 
 
 
-@pytest.mark.parametrize("contact", testdata, ids = [repr(x) for x in testdata])
+#@pytest.mark.parametrize("contact", testdata, ids = [repr(x) for x in testdata])
 
-def test_add_contact(app, contact):
+def test_add_contact(app, data_contacts):
+    contact = data_contacts
     old_contacts = app.contact.get_contacts_list()
     app.contact.add_new_contact(contact)
     new_contacts = app.contact.get_contacts_list()
