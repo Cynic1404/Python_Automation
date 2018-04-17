@@ -10,7 +10,6 @@ class Application:
         if browser == "chrome":
             self.wd = webdriver.Chrome()
         elif browser == "firefox":
-            #self.wd = webdriver.Firefox()
             self.wd = WebDriver(capabilities={"marionette": False})
         elif browser == "edge":
             self.wd = webdriver.Edge()
