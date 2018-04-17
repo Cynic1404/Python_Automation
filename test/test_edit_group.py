@@ -1,11 +1,20 @@
 # -*- coding: utf-8 -*-
 from model.group import Group
 from random import randrange
+import random
 
 
+def test_edit_some_group(app, db):
+    if app.group.count() == 0:
+        app.group.create(Group(group_name="test"))
+    old_groups = db.get_group_list()
+    group = random.choice(old_groups)
+    new_data = Group(group_name="Edited some group", header="Header edited", footer="Footer edited")
+    app.group.modify_group_by_id(group.id, new_data)
+    new_groups = app.group.get_group_list()
+    assert len(old_groups) == len(new_groups)
 
-
-
+"""
 def test_modify_first_group_name(app):
     if app.group.count() == 0:
         app.group.create(Group(group_name="new group"))
@@ -54,5 +63,5 @@ def test_modify_some_group_header(app):
     app.group.modify_group_by_index(index, group)
     assert len(old_groups) == app.group.count()
 
-
+"""
 
