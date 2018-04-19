@@ -3,7 +3,7 @@ from model.group import Group
 from random import randrange
 import random
 
-
+"""
 def test_edit_some_group_compare_db(app, db):
     if app.group.count() == 0:
         app.group.create(Group(group_name="test"))
@@ -11,8 +11,27 @@ def test_edit_some_group_compare_db(app, db):
     group = random.choice(old_groups)
     new_data = Group(group_name="Edited some group", header="Header edited", footer="Footer edited")
     app.group.modify_group_by_id(group.id, new_data)
+    for el in old_groups:
+        if el[0] == group.id:
+            el = [group.id, group.group_name, group.header, group.footer]
+        return el
+    old_groups[int(group.id)-1] = new_data
     new_groups = app.group.get_group_list()
     assert len(old_groups) == len(new_groups)
+    
+    
+"""
+def test_modify_first_group_name_compare_db(app, db):
+    if app.group.count() == 0:
+        app.group.create(Group(group_name="new group"))
+    old_groups = db.get_group_list()
+    group = Group(group_name="Modified cool name")
+    group.id = old_groups[0].id
+    app.group.modify_first_group(group)
+    new_groups = db.get_group_list()
+    assert len(old_groups) == app.group.count()
+    old_groups[0] = group
+    assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
 
 """
 def test_modify_first_group_name(app):

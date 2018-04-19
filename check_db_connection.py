@@ -1,26 +1,25 @@
 import pymysql.cursors
+from fixture.db import DbFixture
 
-
-connection = pymysql.connect(host ="127.0.0.1", database ="addressbook", user ="root", password ="")
+db = DbFixture(host ="127.0.0.1", name ="addressbook", user ="root", password ="")
 
 
 """
 try:
-    cursor = connection.cursor()
-    cursor.execute("select * from group_list")
-    for row in cursor.fetchall():
-        print(row)
+    groups = db.get_group_list()
+    for group in groups:
+        print(group)
+    print(len(groups))
 finally:
-    connection.close()
-    
-    
+    db.destroy()
 """
 
 try:
-    cursor = connection.cursor()
-    cursor.execute("select id, firstname, lastname from addressbook where deprecated ='0000-00-00 00:00:00'")
-    for row in cursor.fetchall():
-        print(row)
+    contacts = db.get_contacts_list()
+    for contact in contacts:
+        print(contact)
+    print(len(contacts))
 finally:
-    connection.close()
+    db.destroy()
+
 

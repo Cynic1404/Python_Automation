@@ -21,7 +21,6 @@ def test_add_contact_with_data_compare_db(app, db, data_contacts):
     old_contacts.append(contact)
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
-"""
 
     
 def test_add_contact_with_json(app, json_contacts):
@@ -44,4 +43,3 @@ def test_add_contact_with_data(app, data_contacts):
     old_contacts.append(contact)
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
-"""

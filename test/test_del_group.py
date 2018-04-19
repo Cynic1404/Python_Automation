@@ -16,6 +16,7 @@ def test_delete_some_group_compare_db(app, db):
     assert old_groups == new_groups
 
 
+
 """
 def test_delete_some_group(app):
     if app.group.count() == 0:

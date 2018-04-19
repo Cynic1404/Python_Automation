@@ -23,17 +23,36 @@ class DbFixture:
             cursor.close()
         return list
 
+
+    def destroy(self):
+        self.connection.close()
+
     def get_contacts_list(self):
         list = []
         cursor = self.connection.cursor()
         try:
-            cursor.execute("select id, firstname, lastname from addressbook where deprecated ='0000-00-00 00:00:00'")
+            cursor.execute("select id, firstname, lastname from addressbook  where deprecated ='0000-00-00 00:00:00'")
             for row in cursor:
-                (id, first_name, last_name) = row
-                list.append(Contact(id = str(id), first_name=first_name, last_name=last_name))
+                (id, firstname, lastname) = row
+                list.append(Contact(id = str(id), first_name=firstname, last_name=lastname))
         finally:
             cursor.close()
         return list
 
-    def destroy(self):
-        self.connection.close()
+
+
+
+    def get_contacts_list2(self):
+        list = []
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("select id, firstname, lastname, address, home, email  from addressbook where deprecated ='0000-00-00 00:00:00'")
+            for row in cursor:
+                (id, firstname, lastname, address, all_phones, all_emails) = row
+                list.append(Contact(id=str(id), first_name=firstname, last_name=lastname, all_phones=all_phones, all_emails_from_home_page=all_emails))
+                print(list)
+        finally:
+            cursor.close()
+        return list
+
+
