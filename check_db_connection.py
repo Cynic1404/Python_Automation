@@ -19,6 +19,7 @@ try:
     for contact in contacts:
         print(contact)
     print(len(contacts))
+
 finally:
     db.destroy()
 
