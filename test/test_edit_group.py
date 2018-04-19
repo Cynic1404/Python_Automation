@@ -4,7 +4,7 @@ from random import randrange
 import random
 
 
-def test_edit_some_group(app, db):
+def test_edit_some_group_compare_db(app, db):
     if app.group.count() == 0:
         app.group.create(Group(group_name="test"))
     old_groups = db.get_group_list()
