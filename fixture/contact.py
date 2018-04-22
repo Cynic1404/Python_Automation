@@ -131,8 +131,7 @@ class ContactHelper:
                 first_name = cells[2].text
                 last_name = cells[1].text
                 all_phones = cells[5].text
-                address = cells[3]
-                all_emails = [4]
+                address = cells[3].text
                 self.contacts_cache.append(Contact(first_name=first_name, last_name=last_name, id=id, address = address, all_phones=all_phones))
         return list(self.contacts_cache)
 

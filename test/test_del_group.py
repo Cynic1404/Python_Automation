@@ -40,12 +40,13 @@ def test_first_group(app):
     old_groups[0:1] = []
     assert old_groups == new_groups
 
+
+
+"""
+
 def test_del_all_groups(app):
     if app.group.count() == 0:
         app.group.create(Group(group_name="test"))
     app.group.delete_all_groups()
     new_groups = len(app.group.get_group_list())
     assert new_groups == 0
-
-"""
-

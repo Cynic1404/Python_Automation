@@ -43,4 +43,15 @@ class DbFixture:
             cursor.close()
         return list
 
+    def get_phones_list(self):
+        list = []
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("select home from addressbook where")
+            for row in cursor:
+                list.append(row)
+        finally:
+            cursor.close()
+        return list
+
 

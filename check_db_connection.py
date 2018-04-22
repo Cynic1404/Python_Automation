@@ -3,7 +3,6 @@ from fixture.db import DbFixture
 
 db = DbFixture(host ="127.0.0.1", name ="addressbook", user ="root", password ="")
 
-
 """
 try:
     groups = db.get_group_list()
@@ -12,13 +11,13 @@ try:
     print(len(groups))
 finally:
     db.destroy()
-"""
 
+"""
 try:
-    contacts = db.get_contacts_list()
-    for contact in contacts:
+    d = db.get_contacts_list()
+    for contact in d:
         print(contact)
-    print(len(contacts))
+    print(len(d))
 
 finally:
     db.destroy()
