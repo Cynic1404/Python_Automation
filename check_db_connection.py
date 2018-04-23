@@ -14,7 +14,7 @@ finally:
 
 """
 try:
-    d = db.get_contacts_list()
+    d = db.get_emails_list()
     for contact in d:
         print(contact)
     print(len(d))

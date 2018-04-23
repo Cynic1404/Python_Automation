@@ -230,3 +230,26 @@ class ContactHelper:
         self.return_home_page()
         self.contacts_cache = None
 
+
+
+    def get_phones_from_home_page(self):
+        wd = self.app.wd
+        self.open_home_page()
+        phones = []
+        for contact in wd.find_elements_by_name("entry"):
+            cells = contact.find_elements_by_tag_name("td")
+            all_phones_from_home_page = cells[5].text
+            phones.append(all_phones_from_home_page)
+        print(phones)
+        return phones
+
+    def get_emails_from_home_page(self):
+        wd = self.app.wd
+        self.open_home_page()
+        list = []
+        for contact in wd.find_elements_by_name("entry"):
+            cells = contact.find_elements_by_tag_name("td")
+            emails = cells[4].text
+            if emails != '':
+                list += emails.split("\n")
+        return list
