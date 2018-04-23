@@ -235,13 +235,13 @@ class ContactHelper:
     def get_phones_from_home_page(self):
         wd = self.app.wd
         self.open_home_page()
-        phones = []
+        list = []
         for contact in wd.find_elements_by_name("entry"):
             cells = contact.find_elements_by_tag_name("td")
-            all_phones_from_home_page = cells[5].text
-            phones.append(all_phones_from_home_page)
-        print(phones)
-        return phones
+            phones = cells[5].text
+            if phones != '':
+                list += phones.split("\n")
+        return list
 
     def get_emails_from_home_page(self):
         wd = self.app.wd
@@ -252,4 +252,15 @@ class ContactHelper:
             emails = cells[4].text
             if emails != '':
                 list += emails.split("\n")
+        return list
+
+    def get_address(self):
+        wd = self.app.wd
+        self.open_home_page()
+        list = []
+        for contact in wd.find_elements_by_name("entry"):
+            cells = contact.find_elements_by_tag_name("td")
+            address = cells[3].text
+            if address != "":
+                list.append(address)
         return list

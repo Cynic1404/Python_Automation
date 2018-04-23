@@ -47,9 +47,11 @@ class DbFixture:
         list = []
         cursor = self.connection.cursor()
         try:
-            cursor.execute("select home from addressbook where deprecated ='0000-00-00 00:00:00'")
+            cursor.execute("select home, mobile, work from addressbook where deprecated ='0000-00-00 00:00:00'")
             for row in cursor:
-                list.append(row[0])
+                for el in row:
+                    if el != '':
+                        list.append(el.replace("-", ""))
         finally:
             cursor.close()
         return list
@@ -67,4 +69,15 @@ class DbFixture:
             cursor.close()
         return list
 
-
+    def get_address(self):
+        list = []
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("select address from addressbook where deprecated ='0000-00-00 00:00:00'")
+            for row in cursor:
+                for el in row:
+                    if el != '':
+                        list.append((el.replace("\n", "")).replace("\r", ""))
+        finally:
+            cursor.close()
+        return list
