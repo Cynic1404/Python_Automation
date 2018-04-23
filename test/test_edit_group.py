@@ -20,7 +20,7 @@ def test_edit_some_group_compare_db(app, db):
     assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
 
 
-"""
+
 def test_modify_first_group_name_compare_db(app, db):
     if app.group.count() == 0:
         app.group.create(Group(group_name="new group"))
@@ -54,8 +54,13 @@ def test_edit_some_group(app):
     old_groups = app.group.get_group_list()
     index = randrange(len(old_groups))
     group = Group(group_name="Edited some group", header="Header edited", footer="Footer edited")
+    group.id = old_groups[index].id
     app.group.modify_group_by_index(index, group)
+    new_groups = app.group.get_group_list()
     assert len(old_groups) == app.group.count()
+    old_groups[index] = group
+    assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
+
 
 
 def test_modify_some_group_name(app):
@@ -82,6 +87,3 @@ def test_modify_some_group_header(app):
     group.id = old_groups[index].id
     app.group.modify_group_by_index(index, group)
     assert len(old_groups) == app.group.count()
-
-
-"""
