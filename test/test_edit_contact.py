@@ -3,53 +3,20 @@ from model.contact import Contact
 from random import randrange
 import random
 
-def test_edit_some_contact(app):
-    if app.contact.count() == 0:
-        app.contact.add_new_contact(Contact(first_name="test first name", last_name="test last name", homephone="000000000000000000000000000000000000"))
-    old_contacts = app.contact.get_contacts_list()
-    index = randrange(len(old_contacts))
-    app.contact.modify_contact_by_index(index, Contact(first_name="Some account first name", last_name="changed last name", nickname="changed nickname", homephone="+79260000000", email2="second@gmail.com", homepage="changed www.pythontraining.com", mobilephone="222222222"))
-    assert len(old_contacts) == app.contact.count()
-
-    new_contacts_list = app.contact.get_contacts_list()
-    assert len(old_contacts) == len(new_contacts_list)
-    old_contacts[index-1] = Contact(first_name="Some account first name", last_name="changed last name", nickname="changed nickname", homephone="+79260000000", email2="second@gmail.com", homepage="changed www.pythontraining.com", mobilephone="222222222")
-    assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts_list, key=Contact.id_or_max)
-
-"""
-def test_edit_some_contact(app, db):
-    app.contact.create_if_absent()
-    # preparation
-    new_contact = (Contact(first_name="test first name", last_name="test last name", homephone="000000000000000000000000000000000000"))
-    old_contacts_list = db.get_contacts_list()
-    random_contact = random.choice(old_contacts_list)
-    new_contact.id = random_contact.id
-    app.contact.modify_contact_by_index()
-
-    # checking
-    new_contacts_list = db.get_contact_list()
-    assert len(old_contacts_list) == len(new_contacts_list), \
-        "Number of contacts changed after contact updating"
-    #replacing old contact which was updated
-    for n in range(len(old_contacts_list)):
-        if old_contacts_list[n].id == new_contact.id:
-            old_contacts_list[n] = new_contact
-            break
-    assert sorted(old_contacts_list, key=Contact.id_or_max) == sorted(new_contacts_list, key=Contact.id_or_max), \
-        "Number of contacts changed after contact updating"
-    if check_ui:
-        assert sorted(new_contacts_list, key=Contact.id_or_max) == sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
-
-
 
 def test_edit_some_contact(app):
     if app.contact.count() == 0:
         app.contact.add_new_contact(Contact(first_name="test first name", last_name="test last name", homephone="000000000000000000000000000000000000"))
     old_contacts = app.contact.get_contacts_list()
     index = randrange(len(old_contacts))
-    app.contact.modify_contact_by_index(index, Contact(first_name="Some account first name", last_name="changed last name", nickname="changed nickname", homephone="+79260000000", email2="second@gmail.com", homepage="changed www.pythontraining.com", mobilephone="222222222"))
+    contact = Contact(first_name="Some account first name", last_name="changed last name", nickname="changed nickname", homephone="+79260000000", email2="second@gmail.com", homepage="changed www.pythontraining.com", mobilephone="222222222")
+    contact.id = old_contacts[index].id
+    app.contact.modify_contact_by_index(index, contact)
+    new_contacts = app.contact.get_contacts_list()
     assert len(old_contacts) == app.contact.count()
-    
+    old_contacts[index] = contact
+    assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
+
 
 def test_edit_first_contact_name(app):
     contact = Contact(last_name="Lomonosov")
@@ -89,4 +56,3 @@ def test_edit_some_contact_homephone(app):
     assert len(old_contacts) == app.contact.count()
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
-"""
