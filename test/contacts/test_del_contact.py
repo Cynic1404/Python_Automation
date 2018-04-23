@@ -27,7 +27,7 @@ def test_delete_some_contact(app):
 
 
 """
-def test_delete_some_contact_compare_db(app, db):
+def test_delete_some_contact_compare_db(app, db, check_ui):
     if len(db.get_contacts_list()) == 0:
         app.contact.add_new_contact(Contact(first_name="Vladimir", last_name="Lenin", homephone="000000000000000000000000000000000000"))
     old_contacts = db.get_contacts_list()
@@ -37,4 +37,5 @@ def test_delete_some_contact_compare_db(app, db):
     assert len(old_contacts) - 1 == len(new_contacts)
     old_contacts.remove(contact)
     assert old_contacts == new_contacts
-
+    if check_ui:
+        assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.group.get_group_list(), key=Contact.id_or_max)

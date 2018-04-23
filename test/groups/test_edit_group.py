@@ -24,7 +24,6 @@ def test_edit_some_group_compare_db(app, db):
 def test_modify_first_group_name_compare_db(app, db):
     if app.group.count() == 0:
         app.group.create(Group(group_name="new group"))
-    old_groups_from_db = db.get_group_list()
     old_groups = app.group.app.group.get_group_list()
     group = Group(group_name="Modified cool name")
     group.id = old_groups[0].id
