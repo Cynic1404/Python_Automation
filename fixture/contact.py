@@ -222,4 +222,11 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_id("%s" % id).click()
 
+    def modify_contact_by_id(self, id, contact):
+        wd = self.app.wd
+        self.open_contact_to_edit_by_index(id)
+        self.fill_contact_form(contact)
+        wd.find_element_by_name("update").click()
+        self.return_home_page()
+        self.contacts_cache = None
 
