@@ -4,6 +4,31 @@ from random import randrange
 import random
 
 
+
+
+
+def test_edit_some_contact_compare_db(app, db, check_ui):
+
+    contact = Contact(first_name="Some account first name", last_name="changed last name", nickname="changed nickname", homephone="+79260000000", email2="second@gmail.com", homepage="changed www.pythontraining.com", mobilephone="222222222")
+    old_contacts_list = db.get_contacts_list()
+    random_contact = random.choice(old_contacts_list)
+    contact.id = random_contact.id
+    app.contact.modify_contact_by_id(contact.id, contact)
+    new_contacts_list = db.get_contacts_list()
+    assert len(old_contacts_list) == len(new_contacts_list)
+    for n in range(len(old_contacts_list)):
+        if old_contacts_list[n].id == contact.id:
+            old_contacts_list[n] = contact
+            break
+    assert sorted(old_contacts_list, key=Contact.id_or_max) == sorted(new_contacts_list, key=Contact.id_or_max)
+    if check_ui:
+        assert sorted(new_contacts_list, key=Contact.id_or_max) == sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
+
+
+
+
+"""
+
 def test_edit_some_contact(app):
     if app.contact.count() == 0:
         app.contact.add_new_contact(Contact(first_name="test first name", last_name="test last name", homephone="000000000000000000000000000000000000"))
@@ -56,3 +81,4 @@ def test_edit_some_contact_homephone(app):
     assert len(old_contacts) == app.contact.count()
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
+"""

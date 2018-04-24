@@ -222,14 +222,19 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_id("%s" % id).click()
 
+
     def modify_contact_by_id(self, id, contact):
         wd = self.app.wd
-        self.open_contact_to_edit_by_index(id)
+        self.open_contact_to_edit_by_id(id)
         self.fill_contact_form(contact)
         wd.find_element_by_name("update").click()
         self.return_home_page()
         self.contacts_cache = None
 
+    def open_contact_to_edit_by_id(self, id):
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_element_by_xpath('//a[@href="edit.php?id=%s"]' % id).click()
 
 
     def get_phones_from_home_page(self):
@@ -264,3 +269,10 @@ class ContactHelper:
             if address != "":
                 list.append(address)
         return list
+
+
+    def find_id(self):
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_element_by_xpath('//a[@href="edit.php?id=1299"]').click()
+        print("URAAAAA")
