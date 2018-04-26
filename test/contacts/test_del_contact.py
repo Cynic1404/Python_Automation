@@ -28,12 +28,12 @@ def test_delete_some_contact(app):
 
 """
 def test_delete_some_contact_compare_db(app, db, check_ui):
-    if len(db.get_contacts_list()) == 0:
+    if len(db.get_contact_list()) == 0:
         app.contact.add_new_contact(Contact(first_name="Vladimir", last_name="Lenin", homephone="000000000000000000000000000000000000"))
-    old_contacts = db.get_contacts_list()
+    old_contacts = db.get_contact_list()
     contact = random.choice(old_contacts)
     app.contact.delete_contact_by_id(contact.id)
-    new_contacts = db.get_contacts_list()
+    new_contacts = db.get_contact_list()
     assert len(old_contacts) - 1 == len(new_contacts)
     old_contacts.remove(contact)
     assert old_contacts == new_contacts

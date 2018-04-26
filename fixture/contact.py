@@ -231,6 +231,7 @@ class ContactHelper:
         self.return_home_page()
         self.contacts_cache = None
 
+
     def open_contact_to_edit_by_id(self, id):
         wd = self.app.wd
         self.open_home_page()
