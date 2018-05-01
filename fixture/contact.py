@@ -1,5 +1,7 @@
 from model.contact import Contact
 import re
+from selenium.webdriver.support.ui import Select
+
 
 class ContactHelper:
     def __init__(self, app):
@@ -277,3 +279,24 @@ class ContactHelper:
         self.open_home_page()
         wd.find_element_by_xpath('//a[@href="edit.php?id=1299"]').click()
         print("URAAAAA")
+
+    def add_to_group(self, contact_id, group_id):
+        wd = self.app.wd
+        self.open_home_page()
+        self.select_contact_by_id(contact_id)
+        self.select_from_dropdown_by_value(wd, 'to_group', group_id)
+        wd.find_element_by_name('add').click()
+        self.open_home_page()
+
+    def select_from_dropdown_by_value(self, wd, menu_name, value):
+        select = Select(wd.find_element_by_name(menu_name))
+        select.select_by_value(value)
+
+    def remove_from_group(self, contact_id, group_id):
+        wd = self.app.wd
+        self.open_home_page()
+        self.select_from_dropdown_by_value(wd, 'group', group_id)
+        self.select_contact_by_id(contact_id)
+        wd.find_element_by_name('remove').click()
+        self.open_home_page()
+        self.select_from_dropdown_by_value(wd, 'group', "")

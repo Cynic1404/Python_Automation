@@ -17,7 +17,7 @@ finally:
 """
 
 try:
-    l = db.get_contacts_in_group(Group(id="543"))
+    l = db.get_contacts_not_in_group(Group(id="543"))
     for item in l:
         print(item)
     print(len(l))

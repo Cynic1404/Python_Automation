@@ -7,14 +7,14 @@ import random
 
 
 
-def test_edit_some_contact_compare_db(app, db, check_ui):
+def test_edit_some_contact_compare_db(app, orm, check_ui):
 
     contact = Contact(first_name="Some account first name", last_name="changed last name", nickname="changed nickname", homephone="+79260000000", email2="second@gmail.com", homepage="changed www.pythontraining.com", mobilephone="222222222")
-    old_contacts_list = db.get_contact_list()
+    old_contacts_list = orm.get_contact_list()
     random_contact = random.choice(old_contacts_list)
     contact.id = random_contact.id
     app.contact.modify_contact_by_id(contact.id, contact)
-    new_contacts_list = db.get_contact_list()
+    new_contacts_list = orm.get_contact_list()
     assert len(old_contacts_list) == len(new_contacts_list)
     for n in range(len(old_contacts_list)):
         if old_contacts_list[n].id == contact.id:
