@@ -2,22 +2,22 @@
 from model.group import Group
 
 
-def test_add_group_with_json_compare_db(app, orm, json_groups, check_ui):
+def test_add_group_with_json_compare_db(app, db, json_groups, check_ui):
     group = json_groups
-    old_groups = orm.get_group_list()
+    old_groups = db.get_group_list()
     app.group.create(group)
-    new_groups = orm.get_group_list()
+    new_groups = db.get_group_list()
     old_groups.append(group)
     assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
     if check_ui:
         assert sorted(new_groups, key=Group.id_or_max) == sorted(app.group.get_group_list(), key=Group.id_or_max)
 
 
-def test_add_group_with_data_compare_db(app, orm, data_groups, check_ui):
+def test_add_group_with_data_compare_db(app, db, data_groups, check_ui):
     group = data_groups
-    old_groups = orm.get_group_list()
+    old_groups = db.get_group_list()
     app.group.create(group)
-    new_groups = orm.get_group_list()
+    new_groups = db.get_group_list()
     old_groups.append(group)
     assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
     if check_ui:

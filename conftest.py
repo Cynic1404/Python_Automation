@@ -35,7 +35,7 @@ def db(request):
     def fin():
         dbfixture.destroy()
     request.addfinalizer(fin)
-    return DbFixture
+    return dbfixture
 
 
 @pytest.fixture(scope='session')

@@ -4,15 +4,15 @@ from random import randrange
 import random
 
 
-def test_edit_some_group_compare_db(app, orm):
+def test_edit_some_group_compare_db(app, db):
     if app.group.count() == 0:
         app.group.create(Group(group_name="test"))
-    old_groups = orm.get_group_list()
+    old_groups = db.get_group_list()
     group = random.choice(old_groups)
     new_group = Group(group_name="Edited some group", header="Header edited", footer="Footer edited")
     new_group.id = group.id
     app.group.modify_group_by_id(group.id, new_group)
-    new_groups = orm.get_group_list()
+    new_groups = db.get_group_list()
     for i in range(len(old_groups)):
         if old_groups[i].id == new_group.id:
             old_groups[i] = new_group
